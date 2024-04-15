@@ -27,7 +27,7 @@ class Response {
     public $statusCode;
     public $data;
 
-    public function __construct(int $statusCode, $data)
+    public function __construct(int $statusCode, $data = '')
     {
         $this->statusCode = $statusCode;
         $this->data = $data;
@@ -45,7 +45,7 @@ class Response {
 
     protected function sendContent()
     {
-        if(!$this->isPrintable($this->content)) {
+        if(!$this->isPrintable($this->data)) {
             if(_PS_MODE_DEV_) {
                 throw new Exception("Response value is not printable", 1);
             }
@@ -53,7 +53,7 @@ class Response {
             return false;
         }
 
-        echo $this->content;
+        echo $this->data;
     }
 
     public function send()
